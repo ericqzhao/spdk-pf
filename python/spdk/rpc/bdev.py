@@ -1299,6 +1299,37 @@ def bdev_rbd_resize(client, name, new_size):
             }
     return client.call('bdev_rbd_resize', params)
 
+def bdev_xfbd_create(client, config_file, bd_name, block_size, uuid=None):
+    """Create a xflash block device.
+
+    Args:
+        block_size: block size of xf volume
+        name: name of block device
+        config_file, xf client config file
+        uuid: UUID of block device (optional)
+
+    Returns:
+        Name of created block device.
+    """
+    params = {
+        'bd_name': bd_name,
+        'block_size': block_size,
+        'config_file': config_file,
+    }
+
+
+    return client.call('bdev_xfbd_create', params)
+
+
+def bdev_xfbd_delete(client, name):
+    """Remove xflash bdev from the system.
+
+    Args:
+        name: name of xflash bdev to delete
+    """
+    params = {'name': name}
+    return client.call('bdev_xfbd_delete', params)
+
 
 def bdev_error_create(client, base_name, uuid=None):
     """Construct an error injection block device.

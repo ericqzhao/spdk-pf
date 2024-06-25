@@ -111,6 +111,8 @@ CONFIG_FC_PATH=
 # Requires librbd development libraries
 CONFIG_RBD=n
 
+CONFIG_XFBD=n
+
 # Build DAOS support in bdev modules
 # Requires daos development libraries
 CONFIG_DAOS=n
