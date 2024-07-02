@@ -82,6 +82,8 @@ function usage() {
 	echo " --without-rbd             No path required."
 	echo " --with-xfbd               Build XFlash RBD bdev module."
 	echo " --without-xfbd            No path required."
+	echo " --with-pfbd               Build PureFlash BD bdev module."
+	echo " --without-pfbd            No path required."
 	echo " --with-ublk               Build ublk library."
 	echo " --without-ublk            No path required."
 	echo " --with-rdma[=DIR]         Build RDMA transport for NVMf target and initiator."
@@ -473,6 +475,12 @@ for i in "$@"; do
 			;;
 		--without-xfbd)
 			CONFIG[XFBD]=n
+			;;
+		--with-pfbd)
+			CONFIG[PFBD]=y
+			;;
+		--without-pfbd)
+			CONFIG[PFBD]=n
 			;;
 		--with-rdma=*)
 			CONFIG[RDMA]=y

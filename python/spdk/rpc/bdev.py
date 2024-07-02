@@ -1299,6 +1299,37 @@ def bdev_rbd_resize(client, name, new_size):
             }
     return client.call('bdev_rbd_resize', params)
 
+def bdev_pfbd_create(client, config_file, bd_name, block_size, uuid=None):
+    """Create a pureflash block device.
+
+    Args:
+        block_size: block size of xf volume
+        name: name of block device
+        config_file, pf client config file
+        uuid: UUID of block device (optional)
+
+    Returns:
+        Name of created block device.
+    """
+    params = {
+        'bd_name': bd_name,
+        'block_size': block_size,
+        'config_file': config_file,
+    }
+
+
+    return client.call('bdev_pfbd_create', params)
+
+
+def bdev_pfbd_delete(client, name):
+    """Remove pureflash bdev from the system.
+
+    Args:
+        name: name of pureflash bdev to delete
+    """
+    params = {'name': name}
+    return client.call('bdev_pfbd_delete', params)
+
 def bdev_xfbd_create(client, config_file, bd_name, block_size, uuid=None):
     """Create a xflash block device.
 

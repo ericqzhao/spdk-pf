@@ -9,6 +9,7 @@ BLOCKDEV_MODULES_LIST += bdev_raid bdev_error bdev_gpt bdev_split bdev_delay
 BLOCKDEV_MODULES_LIST += bdev_zone_block
 BLOCKDEV_MODULES_LIST += blobfs blobfs_bdev blob_bdev blob lvol vmd nvme
 XFBD_VAR := $(or $(XFBD_ENV_VAR), default_value_if_not_set)
+PFBD_VAR := $(or $(PFBD_ENV_VAR), default_value_if_not_set)
 
 # Some bdev modules don't have pollers, so they can directly run in interrupt mode
 INTR_BLOCKDEV_MODULES_LIST = bdev_malloc bdev_passthru bdev_error bdev_gpt bdev_split bdev_raid
@@ -94,6 +95,11 @@ endif
 ifeq ($(CONFIG_XFBD),y)
 BLOCKDEV_MODULES_LIST += bdev_xfbd
 BLOCKDEV_MODULES_PRIVATE_LIBS += $(XFBD_VAR)
+endif
+
+ifeq ($(CONFIG_PFBD),y)
+BLOCKDEV_MODULES_LIST += bdev_pfbd
+BLOCKDEV_MODULES_PRIVATE_LIBS += $(PFBD_VAR)
 endif
 
 ifeq ($(CONFIG_DAOS),y)

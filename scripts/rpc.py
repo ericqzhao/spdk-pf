@@ -1082,6 +1082,28 @@ if __name__ == "__main__":
     p.add_argument('name', help='rbd bdev name')
     p.set_defaults(func=bdev_rbd_delete)
 
+    def bdev_pfbd_create(args):
+        print_json(rpc.bdev.bdev_pfbd_create(args.client,
+                                            config_file=args.config_file,
+                                            bd_name=args.bd_name,
+                                            block_size=args.block_size,
+                                            uuid=args.uuid))
+
+    p = subparsers.add_parser('bdev_pfbd_create', help='Add a bdev with pureflash bd backend')
+    p.add_argument('bd_name', help='pureflash bd name')
+    p.add_argument('block_size', help='pureflash bd block size', type=int)
+    p.add_argument('config_file', help='pureflash client config file path')
+    p.add_argument('-u', '--uuid', help="UUID of the bdev")
+    p.set_defaults(func=bdev_pfbd_create)
+
+    def bdev_pfbd_delete(args):
+        rpc.bdev.bdev_pfbd_delete(args.client,
+                                 name=args.name)
+
+    p = subparsers.add_parser('bdev_pfbd_delete', help='Delete a pureflash bd bdev')
+    p.add_argument('name', help='pfbd bdev name')
+    p.set_defaults(func=bdev_pfbd_delete)
+
     def bdev_xfbd_create(args):
         print_json(rpc.bdev.bdev_xfbd_create(args.client,
                                             config_file=args.config_file,

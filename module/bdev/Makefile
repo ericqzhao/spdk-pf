@@ -34,6 +34,8 @@ DIRS-$(CONFIG_DAOS) += daos
 
 DIRS-$(CONFIG_XFBD) += xfbd
 
+DIRS-$(CONFIG_PFBD) += pfbd
+
 .PHONY: all clean $(DIRS-y)
 
 all: $(DIRS-y)

@@ -113,6 +113,8 @@ CONFIG_RBD=n
 
 CONFIG_XFBD=n
 
+CONFIG_PFBD=n
+
 # Build DAOS support in bdev modules
 # Requires daos development libraries
 CONFIG_DAOS=n
