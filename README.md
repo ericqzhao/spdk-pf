@@ -1,6 +1,6 @@
 
 # Storage Performance Development Kit
-pureflash分布式存储的适配spdk bdev
+pureflash分布式存储适配spdk bdev
 
 使用方法：
 
