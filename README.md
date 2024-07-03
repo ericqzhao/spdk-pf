@@ -1,4 +1,30 @@
+
 # Storage Performance Development Kit
+pureflash分布式存储的适配spdk bdev
+
+使用方法：
+
+1）设置pureflash的lib静态库路径以及头文件路径，假设PureFlash的编译路径为：/home/cocalele/PureFlash
+
+export LDFLAGS="-L/home/cocalele/PureFlash/build_deb/bin"
+
+export CFLAGS="-I/home/cocalele/PureFlash/common/include"
+
+2）设置bdev pfbd的编译环境变量
+
+export PFBD_ENV_VAR="-L=/home/cocalele/PureFlash/thirdParty/zookeeper/zookeeper-client/zookeeper-client-c/.libs/ -ls5common -lcurl -lzookeeper_mt -L/home/cocalele/PureFlash/thirdParty/zookeeper/zookeeper-client/zookeeper-client-c/.libs/ -lstdc++ -luuid -lrdmacm -libverbs"
+
+3）编译spdk nvmf_tgt
+
+./configure --with-pfbd
+
+4）创建pfbd卷
+
+使用spdk的脚本：./rpc.py bdev_pfbd_create test_v1 4096 /etc/pureflash/pf.conf
+
+5）删除pfbd卷
+
+使用spdk的脚本：./rpc.py bdev_pfbd_delete test_v1
 
 [![License](https://img.shields.io/github/license/spdk/spdk?style=flat-square&color=blue&label=License)](https://github.com/spdk/spdk/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/spdk/spdk.svg?branch=master)](https://travis-ci.org/spdk/spdk)
