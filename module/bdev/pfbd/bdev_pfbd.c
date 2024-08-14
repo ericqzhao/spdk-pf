@@ -220,23 +220,31 @@ static void bdev_pfbd_destruct(void *ctx)
 
 static void bdev_pfbd_dump_info_json(void *ctx, struct spdk_json_write_ctx *w)
 {
+    struct bdev_pfbd *rbd = ctx;
     spdk_json_write_name(w, "bdev_pfbd");
     spdk_json_write_object_begin(w);
-    spdk_json_write_name(w, "param1");
-    spdk_json_write_string(w, "value1");
+    spdk_json_write_named_string(w, "bd_name", rbd->bd_name);
+    spdk_json_write_named_uint32(w, "block_size", rbd->disk.blocklen);
+    spdk_json_write_named_string(w, "config_file", rbd->config_file);
+    spdk_json_write_named_uuid(w, "uuid", &rbd->disk.uuid);
     spdk_json_write_object_end(w);
 }
 
-static void bdev_pfbd_write_config_json(struct spdk_json_write_ctx *w, struct spdk_bdev *bdev)
+static void bdev_pfbd_write_config_json(struct spdk_bdev *bdev, struct spdk_json_write_ctx *w)
 {
+    struct bdev_pfbd *rbd = bdev->ctxt;
     spdk_json_write_object_begin(w);
     spdk_json_write_name(w, "method");
     spdk_json_write_string(w, "bdev_pfbd_create");
     spdk_json_write_name(w, "params");
-    spdk_json_write_object_begin(w);
-    spdk_json_write_name(w, "name");
-    spdk_json_write_string(w, bdev->name);
+
+    spdk_json_write_named_object_begin(w, "params");
+    spdk_json_write_named_string(w, "bd_name", rbd->bd_name);
+    spdk_json_write_named_uint32(w, "block_size", rbd->disk.blocklen);
+    spdk_json_write_named_string(w, "config_file", rbd->config_file);
+    spdk_json_write_named_uuid(w, "uuid", &rbd->disk.uuid);
     spdk_json_write_object_end(w);
+
     spdk_json_write_object_end(w);
 }
 
